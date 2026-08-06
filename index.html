@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maryam Rezaie — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── HERO ───────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Maryam Rezaie</h1>
+        <p class="hero-bio">
+          UX researcher focused on AI products and interactive visualization. I run studies, prototype interfaces, and evaluate whether people can actually use and trust the system.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <svg id="connections-svg" aria-hidden="true"></svg>
+
+    <div class="portfolio-layout">
+
+      <!-- ── LEFT: SKILLS (populated from data.js) ────────── -->
+      <div class="col-skills">
+        <h2 class="col-heading">Skills</h2>
+        <div class="skills-stack" id="skills-stack"></div>
+      </div>
+
+      <!-- ── RIGHT: PROJECTS (populated from data.js) ───── -->
+      <div class="col-projects">
+        <h2 class="col-heading">Selected Projects</h2>
+        <div class="projects-stack" id="projects-stack"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>Maryam Rezaie</p>
+      <p class="footer-note">Built from scratch.</p>
+    </div>
+  </footer>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
