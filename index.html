@@ -20,8 +20,30 @@
           UX researcher focused on AI products and interactive visualization. I run studies, prototype interfaces, and evaluate whether people can actually use and trust the system.
         </p>
       </div>
+      <button type="button" class="contact-btn" id="contact-btn" aria-haspopup="dialog">
+        Contact
+      </button>
     </div>
   </header>
+
+  <!-- ── CONTACT MODAL ──────────────────────────────────────────── -->
+  <div class="contact-modal" id="contact-modal" hidden>
+    <div class="contact-modal-backdrop" data-close-modal></div>
+    <div class="contact-modal-panel" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      <button type="button" class="contact-modal-close" data-close-modal aria-label="Close">&times;</button>
+      <h2 id="contact-modal-title">Contact</h2>
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">Email</span>
+          <a href="mailto:mryrezaiee@gmail.com">mryrezaiee@gmail.com</a>
+        </li>
+        <li>
+          <span class="contact-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/mrymrzie/" target="_blank" rel="noopener noreferrer">linkedin.com/in/mrymrzie</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <main id="main">
     <svg id="connections-svg" aria-hidden="true"></svg>
@@ -30,25 +52,24 @@
 
       <!-- ── LEFT: SKILLS (populated from data.js) ────────── -->
       <div class="col-skills">
-        <h2 class="col-heading">Skills</h2>
+        <div class="col-heading-row">
+          <h2 class="col-heading">Skills</h2>
+          <p class="col-hint">Hover over each skill to see related projects</p>
+        </div>
         <div class="skills-stack" id="skills-stack"></div>
       </div>
 
       <!-- ── RIGHT: PROJECTS (populated from data.js) ───── -->
       <div class="col-projects">
-        <h2 class="col-heading">Selected Projects</h2>
+        <div class="col-heading-row">
+          <h2 class="col-heading">Selected Projects</h2>
+          <p class="col-hint">Hover over each project to see related skills</p>
+        </div>
         <div class="projects-stack" id="projects-stack"></div>
       </div>
 
     </div>
   </main>
-
-  <footer>
-    <div class="footer-inner">
-      <p>Maryam Rezaie</p>
-      <p class="footer-note">Built from scratch.</p>
-    </div>
-  </footer>
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="data.js"></script>

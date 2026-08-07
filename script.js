@@ -159,6 +159,7 @@ function buildProjects(rows) {
     const category = row.category.trim();
     const desc     = row.description.trim();
     const status   = row.status.trim();
+    const meta     = (row.meta || '').trim();
     const skills   = row.skills.split(',').map(s => slug(s.trim()));
     const highlights = (row.highlight_skills || []).map(s => slug(String(s).trim())).filter(Boolean);
     const imgColor = (row.img_color || '#dedad3').trim();
@@ -194,8 +195,14 @@ function buildProjects(rows) {
 
     const h4 = document.createElement('h4');
     h4.textContent = name;
-
     top.appendChild(h4);
+
+    if (meta) {
+      const metaEl = document.createElement('p');
+      metaEl.className = 'project-meta';
+      metaEl.textContent = meta;
+      top.appendChild(metaEl);
+    }
 
     const p = document.createElement('p');
     p.textContent = desc;
@@ -352,3 +359,27 @@ buildProjects(PROJECTS);
 
 window.addEventListener('load', drawCurves);
 window.addEventListener('resize', drawCurves);
+
+// ── Contact modal ─────────────────────────────────────────────────
+const contactModal = document.getElementById('contact-modal');
+const contactBtn = document.getElementById('contact-btn');
+
+function openContactModal() {
+  contactModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  contactModal.querySelector('.contact-modal-close')?.focus();
+}
+
+function closeContactModal() {
+  contactModal.hidden = true;
+  document.body.style.overflow = '';
+  contactBtn?.focus();
+}
+
+contactBtn?.addEventListener('click', openContactModal);
+contactModal?.querySelectorAll('[data-close-modal]').forEach(el => {
+  el.addEventListener('click', closeContactModal);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && contactModal && !contactModal.hidden) closeContactModal();
+});

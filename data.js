@@ -49,8 +49,9 @@ const SKILLS = [
 
 // ─────────────────────────────────────────────────────────────────
 //  PROJECTS
-//  Columns: name | category | description | status | skills | highlight_skills | img_color
+//  Columns: name | category | description | status | meta | skills | highlight_skills | img_color
 //  skills: comma-separated skill categories (must match SKILLS categories above)
+//  meta: location / org / year shown on the card (edit freely)
 //  highlight_skills: exact skill names from SKILLS to bold on hover (edit freely)
 // ─────────────────────────────────────────────────────────────────
 const PROJECTS = [
@@ -59,6 +60,7 @@ const PROJECTS = [
     category:    'Human AI Interaction',
     description: 'Humans structure ideas in creative, unpredictable ways on boards. AI handles OCR and simple layouts but misses richer spatial meanings. This project teaches AI to read organization patterns from in-the-wild samples, unlocking truer digitization of physical ideation.',
     status:      'In progress',
+    meta:        'SFU, 2024–2026',
     skills:      'Research, Analyze & Build',
     highlight_skills: [
       'In-the-wild sampling',
@@ -76,6 +78,7 @@ const PROJECTS = [
     category:    'Human AI Interaction',
     description: 'AI-generated outputs carry uncertainty and that affects how people decide. This project explores how to surface uncertainty in ways that genuinely inform hard, multi-factor decisions. I led this project, from finding an underexplored angle, to designing, building, and evaluating the uncetainty communication interface.',
     status:      'In progress',
+    meta:        'Autodesk, 2025',
     skills:      'Research, Design, Analyze & Build, Evaluate',
     highlight_skills: [
       'Literature review',
@@ -101,6 +104,7 @@ const PROJECTS = [
     category:    'Human AI Interaction',
     description: 'Built an interactive visualization of WorkSafeBC fatality data where AI illustrations were generated directly from worker death stories, with computer vision–detected figures serving as clickable data points linked to individual records.',
     status:      'In progress',
+    meta:        '2026',
     skills:      'Design, Analyze & Build',
     highlight_skills: [
       'Visual encoding',
@@ -117,6 +121,7 @@ const PROJECTS = [
     category:    'Designing for Complex Interfaces',
     description: 'People rarely read legends or onboarding text; they dive straight into interacting. This project leverages that behavior to deliver explanations serendipitously, meeting users where they already are and supporting non-linear, discovery-driven learning.',
     status:      'Done',
+    meta:        'PhD thesis, SFU, 2022–2026',
     skills:      'Research, Design, Analyze & Build, Evaluate',
     highlight_skills: [
       'Semi-structured interviews',
@@ -151,6 +156,7 @@ const PROJECTS = [
     category:    'Designing for Complex Interfaces',
     description: 'Built and evaluated 3D user interfaces for a smart game and a smart conference application at an early-stage startup. Used a quantitative approach to analyze how interface design decisions and room complexity affected user performance in smart environments.',
     status:      'Done',
+    meta:        'iSimorgh, IoT startup, 2017–2019',
     skills:      'Research, Design, Analyze & Build, Evaluate',
     highlight_skills: [
       'Literature review',
