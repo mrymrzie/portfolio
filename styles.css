@@ -196,6 +196,180 @@ body {
   text-decoration: underline;
 }
 
+/* ── "Click to read more" tooltip ───────────────────────────────── */
+.card-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  pointer-events: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: #111110;
+  color: #f4f2ee;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.card-tooltip.visible { opacity: 1; }
+
+/* ── Project story modal (Medium-style) ─────────────────────────── */
+.project-modal[hidden] { display: none !important; }
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vh, 32px) 16px;
+}
+.project-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 16, 0.5);
+}
+.project-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 100%);
+  max-height: min(88vh, 900px);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.project-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+}
+.project-modal-close:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+.project-story {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(28px, 4vh, 48px) clamp(22px, 4vw, 56px) clamp(36px, 5vh, 56px);
+  max-height: min(88vh, 900px);
+}
+.project-story-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.project-story-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+  padding-right: 36px;
+  color: var(--text);
+}
+.project-story-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.project-story-block {
+  margin: 0 0 1.35em;
+}
+.project-story-block.heading {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin-top: 1.75em;
+  margin-bottom: 0.65em;
+  color: var(--text);
+}
+.project-story-block.paragraph {
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  line-height: 1.7;
+  color: #2a2926;
+}
+.project-story-block.quote {
+  margin: 1.75em 0;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid #111110;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--text);
+}
+.project-story-link {
+  color: #b45309;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.project-story-link:hover {
+  color: #7c2d12;
+}
+
+.project-story-figure {
+  margin: 1.75em 0;
+}
+.project-story-figure img {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 500px);
+  max-height: clamp(180px, 40vh, 300px);
+  object-fit: contain;
+  border-radius: 6px;
+  background: #eceae4;
+}
+.project-story-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 500px);
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  max-height: clamp(180px, 40vh, 300px);
+  border-radius: 6px;
+  background: linear-gradient(135deg, #e8e4de 0%, #dedad3 100%);
+  border: 1.5px dashed #c4bfb8;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 24px;
+}
+.project-story-caption {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  text-align: center;
+}
+
 /* ── Main — fills remaining viewport height ─────────────────────── */
 main {
   flex: 1;
@@ -454,6 +628,15 @@ main {
   min-width: 0;
   flex: 1;
 }
+.project-title-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.project-title-link:hover {
+  color: #b45309;
+}
 .project-meta {
   flex-shrink: 0;
   margin: 0;
@@ -489,8 +672,25 @@ main {
 .project-tags {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 3px;
   align-content: flex-start;
+}
+.project-readmore {
+  margin-left: auto;
+  padding-left: 8px;
+  font-size: clamp(0.6rem, 0.68vw, 0.72rem);
+  font-weight: 700;
+  color: #b45309;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.project-card:hover .project-readmore,
+.project-card.highlight .project-readmore {
+  color: #7c2d12;
 }
 .tag {
   font-size: clamp(0.56rem, 0.62vw, 0.65rem);

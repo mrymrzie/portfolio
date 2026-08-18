@@ -160,6 +160,7 @@ function buildProjects(rows) {
     const desc     = row.description.trim();
     const status   = row.status.trim();
     const meta     = (row.meta || '').trim();
+    const url      = (row.url || '').trim();
     const skills   = row.skills.split(',').map(s => slug(s.trim()));
     const highlights = (row.highlight_skills || []).map(s => slug(String(s).trim())).filter(Boolean);
     const imgColor = (row.img_color || '#dedad3').trim();
@@ -194,7 +195,19 @@ function buildProjects(rows) {
     top.className = 'project-card-top';
 
     const h4 = document.createElement('h4');
-    h4.textContent = name;
+    if (url) {
+      const link = document.createElement('a');
+      link.className = 'project-title-link';
+      link.href = url;
+      link.textContent = name;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      // Let the title open the live project without triggering the story modal
+      link.addEventListener('click', e => e.stopPropagation());
+      h4.appendChild(link);
+    } else {
+      h4.textContent = name;
+    }
     top.appendChild(h4);
 
     if (meta) {
@@ -217,6 +230,11 @@ function buildProjects(rows) {
       tags.appendChild(tag);
     });
 
+    const readMore = document.createElement('span');
+    readMore.className = 'project-readmore';
+    readMore.textContent = 'Read more \u2192';
+    tags.appendChild(readMore);
+
     body.appendChild(top);
     body.appendChild(p);
     body.appendChild(tags);
@@ -224,9 +242,66 @@ function buildProjects(rows) {
     article.appendChild(body);
     stack.appendChild(article);
 
-    article.addEventListener('mouseenter', () => activateProject(article));
-    article.addEventListener('mouseleave', clearActive);
+    article.addEventListener('mouseenter', e => {
+      activateProject(article);
+      showCardTooltip(e);
+    });
+    article.addEventListener('mousemove', moveCardTooltip);
+    article.addEventListener('mouseleave', () => {
+      clearActive();
+      hideCardTooltip();
+    });
+    article.addEventListener('click', () => {
+      hideCardTooltip();
+      openProjectModal(row);
+    });
+    article.setAttribute('tabindex', '0');
+    article.setAttribute('role', 'button');
+    article.setAttribute('aria-label', 'Open details for ' + name);
+    article.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openProjectModal(row);
+      }
+    });
   });
+}
+
+// ── "Click to read more" tooltip ───────────────────────────────────
+// Lives on <body> so it is never clipped by the card's overflow: hidden.
+let cardTooltip = null;
+
+function ensureCardTooltip() {
+  if (!cardTooltip) {
+    cardTooltip = document.createElement('div');
+    cardTooltip.className = 'card-tooltip';
+    cardTooltip.textContent = 'Click to read more';
+    document.body.appendChild(cardTooltip);
+  }
+  return cardTooltip;
+}
+
+function moveCardTooltip(e) {
+  const tip = ensureCardTooltip();
+  const pad = 14;
+  let x = e.clientX + pad;
+  let y = e.clientY + pad;
+
+  const rect = tip.getBoundingClientRect();
+  if (x + rect.width > window.innerWidth - 8)  x = e.clientX - rect.width - pad;
+  if (y + rect.height > window.innerHeight - 8) y = e.clientY - rect.height - pad;
+
+  tip.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function showCardTooltip(e) {
+  const tip = ensureCardTooltip();
+  tip.classList.add('visible');
+  moveCardTooltip(e);
+}
+
+function hideCardTooltip() {
+  cardTooltip?.classList.remove('visible');
 }
 
 // ── D3 bezier curves ──────────────────────────────────────────────
@@ -380,6 +455,146 @@ contactBtn?.addEventListener('click', openContactModal);
 contactModal?.querySelectorAll('[data-close-modal]').forEach(el => {
   el.addEventListener('click', closeContactModal);
 });
+
+// ── Project story modal ───────────────────────────────────────────
+const projectModal = document.getElementById('project-modal');
+const projectStory = document.getElementById('project-story');
+
+function renderStoryBlocks(blocks) {
+  const frag = document.createDocumentFragment();
+  (blocks || []).forEach(block => {
+    if (!block || !block.type) return;
+
+    if (block.type === 'heading') {
+      const h = document.createElement('h3');
+      h.className = 'project-story-block heading';
+      h.textContent = block.text || '';
+      frag.appendChild(h);
+      return;
+    }
+
+    if (block.type === 'paragraph') {
+      const p = document.createElement('p');
+      p.className = 'project-story-block paragraph';
+      p.textContent = block.text || '';
+      frag.appendChild(p);
+      return;
+    }
+
+    if (block.type === 'link') {
+      const p = document.createElement('p');
+      p.className = 'project-story-block paragraph';
+      if (block.text) p.appendChild(document.createTextNode(block.text));
+
+      const a = document.createElement('a');
+      a.className = 'project-story-link';
+      a.href = block.href || '#';
+      a.textContent = block.linkText || block.href || 'Read more';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      p.appendChild(a);
+
+      if (block.after) p.appendChild(document.createTextNode(block.after));
+      frag.appendChild(p);
+      return;
+    }
+
+    if (block.type === 'quote') {
+      const q = document.createElement('blockquote');
+      q.className = 'project-story-block quote';
+      q.textContent = block.text || '';
+      frag.appendChild(q);
+      return;
+    }
+
+    if (block.type === 'image') {
+      const figure = document.createElement('figure');
+      figure.className = 'project-story-figure';
+
+      if (block.src) {
+        const img = document.createElement('img');
+        img.src = block.src;
+        img.alt = block.alt || '';
+        figure.appendChild(img);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'project-story-placeholder';
+        ph.textContent = 'Image placeholder';
+        figure.appendChild(ph);
+      }
+
+      if (block.caption) {
+        const cap = document.createElement('figcaption');
+        cap.className = 'project-story-caption';
+        cap.textContent = block.caption;
+        figure.appendChild(cap);
+      }
+
+      frag.appendChild(figure);
+    }
+  });
+  return frag;
+}
+
+function openProjectModal(project) {
+  if (!projectModal || !projectStory) return;
+
+  projectStory.innerHTML = '';
+
+  const kicker = document.createElement('p');
+  kicker.className = 'project-story-kicker';
+  kicker.textContent = project.category || 'Project';
+  projectStory.appendChild(kicker);
+
+  const title = document.createElement('h2');
+  title.className = 'project-story-title';
+  title.id = 'project-modal-title';
+  if (project.url) {
+    const link = document.createElement('a');
+    link.className = 'project-title-link';
+    link.href = project.url;
+    link.textContent = project.name || '';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    title.appendChild(link);
+  } else {
+    title.textContent = project.name || '';
+  }
+  projectStory.appendChild(title);
+
+  if (project.meta) {
+    const meta = document.createElement('p');
+    meta.className = 'project-story-meta';
+    meta.textContent = project.meta;
+    projectStory.appendChild(meta);
+  }
+
+  const blocks = project.story && project.story.length
+    ? project.story
+    : placeholderStory(project.name || 'Project');
+  projectStory.appendChild(renderStoryBlocks(blocks));
+
+  projectModal.hidden = false;
+  projectStory.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  projectModal.querySelector('.project-modal-close')?.focus();
+}
+
+function closeProjectModal() {
+  if (!projectModal) return;
+  projectModal.hidden = true;
+  document.body.style.overflow = '';
+}
+
+projectModal?.querySelectorAll('[data-close-project-modal]').forEach(el => {
+  el.addEventListener('click', closeProjectModal);
+});
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && contactModal && !contactModal.hidden) closeContactModal();
+  if (e.key !== 'Escape') return;
+  if (projectModal && !projectModal.hidden) {
+    closeProjectModal();
+    return;
+  }
+  if (contactModal && !contactModal.hidden) closeContactModal();
 });

@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GT76LKZFV2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-GT76LKZFV2');
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maryam Rezaie — Portfolio</title>
@@ -17,7 +27,7 @@
       <div class="hero-text">
         <h1>Maryam Rezaie</h1>
         <p class="hero-bio">
-          UX researcher focused on AI products and interactive visualization. I run studies, prototype interfaces, and evaluate whether people can actually use and trust the system.
+          UX researcher focused on AI products and interactive visualization. I run studies, prototype interactive interfaces, and evaluate whether people can actually use and trust the system.
         </p>
       </div>
       <button type="button" class="contact-btn" id="contact-btn" aria-haspopup="dialog">
@@ -42,6 +52,15 @@
           <a href="https://www.linkedin.com/in/mrymrzie/" target="_blank" rel="noopener noreferrer">linkedin.com/in/mrymrzie</a>
         </li>
       </ul>
+    </div>
+  </div>
+
+  <!-- ── PROJECT STORY MODAL ────────────────────────────────────── -->
+  <div class="project-modal" id="project-modal" hidden>
+    <div class="project-modal-backdrop" data-close-project-modal></div>
+    <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+      <button type="button" class="project-modal-close" data-close-project-modal aria-label="Close">&times;</button>
+      <article class="project-story" id="project-story"></article>
     </div>
   </div>
 
