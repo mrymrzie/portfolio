@@ -2,7 +2,7 @@
 //  SKILLS
 //  Columns: category | sub_group (optional) | skill
 // ─────────────────────────────────────────────────────────────────
-// tagline appears once per category (set it on any one row in that category)
+// tagline appears once per category 
 const SKILLS = [
   { category: 'Research',  tagline: 'understanding a problem space', sub_group: 'Data collection', skill: 'Semi-structured interviews'      },
   { category: 'Research',  tagline: '',                             sub_group: 'Data collection',  skill: 'Think-aloud protocols'            },
@@ -47,16 +47,7 @@ const SKILLS = [
   { category: 'Evaluate',  tagline: '',                                  sub_group: 'AI-specific',           skill: 'Decision making'                                            },
 ];
 
-// ─────────────────────────────────────────────────────────────────
-//  PROJECT STORY BLOCKS (Medium-style article inside the click modal)
-//  Edit each project's `story` array. Supported types:
-//    { type: 'paragraph', text: '...' }
-//    { type: 'heading',   text: '...' }
-//    { type: 'quote',     text: '...' }
-//    { type: 'image',     src: 'your-image.jpg', caption: '...', alt: '...' }
-//      Leave src empty ('') to show a gray placeholder box.
-//    { type: 'link', text: 'lead-in text ', linkText: 'clickable words', href: 'https://...', after: '.' }
-//      text/after are optional; opens in a new tab.
+
 // ─────────────────────────────────────────────────────────────────
 function placeholderStory(title) {
   return [
@@ -107,13 +98,7 @@ function placeholderStory(title) {
   ];
 }
 
-// ─────────────────────────────────────────────────────────────────
-//  PROJECTS
-//  meta: location / org / year shown on the card
-//  url: optional live link — makes the project title a hyperlink
-//  skills: comma-separated skill categories
-//  highlight_skills: exact skill names from SKILLS to bold on hover
-//  story: Medium-style blocks for the click-to-open article modal
+
 // ─────────────────────────────────────────────────────────────────
 const PROJECTS = [
   {
@@ -447,23 +432,67 @@ story: [
     ],
     img_color:   '#e0c8d0',
     story: [
-      { type: 'paragraph', text: 'At an early-stage IoT startup, the question was simple to ask and hard to answer: how should someone control a room full of connected devices without hunting through menus?' },
+  {
+    type: 'paragraph',
+    text: 'My path into IoT began with my master’s thesis, where I developed algorithms for assigning tasks to participants in mobile crowdsensing systems. This work caught the attention of an IoT startup founder, who hired me to develop the task-assignment module for a pervasive smart-game platform.'
+  },
 
-      { type: 'heading', text: 'The context' },
-      { type: 'paragraph', text: 'I worked on 3D user interfaces for two products — a smart game and a smart conference application — where the interface had to map onto physical space rather than a flat screen.' },
-      { type: 'image', src: '', caption: 'Add a screenshot or photo of the 3D interface in use', alt: '3D user interface' },
+  {
+    type: 'heading',
+    text: 'From an algorithm to a working system'
+  },
+  {
+    type: 'paragraph',
+    text: 'I implemented the task-assignment module in Java. The system needed to distribute activities across participants while accounting for the sensing capabilities and constraints of a physical, connected environment. This gave me the opportunity to translate my academic work into software for a real product.'
+  },
 
-      { type: 'heading', text: 'What I built' },
-      { type: 'paragraph', text: 'Prototyped and implemented the interfaces in C#, Java, and JavaScript, iterating on how spatial layout and room complexity were represented to the user.' },
-      { type: 'image', src: '', caption: 'Add a diagram of the interaction model or room setup', alt: 'Interaction model diagram' },
+  {
+    type: 'heading',
+    text: 'Wearing multiple hats in an IoT startup'
+  },
+  {
+    type: 'paragraph',
+    text: 'In a small startup, responsibilities rarely stay within a single job description. As the platform evolved, I became involved in several parts of the product beyond the original module. I contributed to the development of 3D user interfaces in C#, worked directly with Raspberry Pi devices, and gained hands-on experience connecting software with sensors and physical environments.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Working across algorithms, interfaces, and hardware taught me to think about an IoT product as an interconnected system. A technically correct component was only valuable if it worked reliably within the environment and supported what users were trying to accomplish.'
+  },
 
-      { type: 'heading', text: 'How I evaluated it' },
-      { type: 'paragraph', text: 'This was my most quantitative project. I ran controlled experiments with usability testing and Wizard of Oz sessions, measuring task completion time, error rates, and standardized scales to isolate how design decisions and room complexity affected user performance.' },
+  {
+    type: 'heading',
+    text: 'Moving from building to UX'
+  },
+  {
+    type: 'paragraph',
+    text: 'As I became more involved in the product, I also began investigating how effectively people could use it. I used web analytics to examine user behavior and conducted rapid UX assessments, including five-second tests and heuristic evaluations, to identify usability problems and guide design improvements.'
+  },
+  {
+    type: 'paragraph',
+    text: 'This work marked an important expansion of my role: Besides programming,I was also studying how people understood it, where they struggled, and how its design could better support their performance.'
+  },
 
-      { type: 'quote', text: 'Replace with your strongest number — the performance difference you measured.' },
+  {
+    type: 'heading',
+    text: 'Evaluating performance in complex environments'
+  },
+  {
+    type: 'paragraph',
+    text: 'I later designed and conducted a formal quantitative study to evaluate how the system affected user performance. The study compared performance across rooms with different levels of complexity, allowing me to examine where the system provided the greatest benefit and how environmental conditions influenced its effectiveness.'
+  },
 
-      { type: 'heading', text: 'What I learned' },
-      { type: 'paragraph', text: 'Close with what the data showed about spatial interfaces, and what carried forward into your later research.' },
-    ],
+  {
+    type: 'heading',
+    text: 'Becoming a researcher who builds'
+  },
+  {
+    type: 'paragraph',
+    text: 'This experience shaped the way I work today. I learned to move fluidly between technical development and user research: implementing algorithms, contributing to interfaces, experimenting with hardware, identifying usability problems, and evaluating whether the complete system improved real human performance.'
+  },
+  {
+  type: 'quote',
+  text: 'I loved this experience because it took me beyond programming and allowed me to work with both the physical world of connected devices and the human side of technology.'
+}
+]
   },
 ];
